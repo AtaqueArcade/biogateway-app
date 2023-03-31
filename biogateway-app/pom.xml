@@ -17,12 +17,41 @@
         -->
     </properties>
 
-    <groupId>org.cytoscape.sample</groupId>
+    <groupId>org.cytoscape.biogateway</groupId>
     <artifactId>biogateway-app</artifactId>
     <packaging>bundle</packaging>
     <version>1.0</version>
 
     <name>Biogateway App</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven-bundle-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Export-Package>!${bundle.namespace}.*</Export-Package>
+                        <Private-Package>${bundle.namespace}.*</Private-Package>
+                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>
@@ -49,43 +78,6 @@
         </repository>
     </repositories>
 
-    <build>
-        <plugins>
-            <plugin>
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <optimize>true</optimize>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                    <compilerArguments>
-                        <Xmaxwarns>10000</Xmaxwarns>
-                        <Xmaxerrs>10000</Xmaxerrs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven-bundle-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
-                        <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>!${bundle.namespace}.*</Export-Package>
-                        <Private-Package>${bundle.namespace}.*</Private-Package>
-                        <Bundle-Activator>${bundle.namespace}.CyActivator</Bundle-Activator>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.cytoscape</groupId>
@@ -94,12 +86,7 @@
         </dependency>
         <dependency>
             <groupId>org.cytoscape</groupId>
-            <artifactId>work-swing-api</artifactId>
-            <version>${cytoscape.api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.cytoscape</groupId>
-            <artifactId>core-task-api</artifactId>
+            <artifactId>work-api</artifactId>
             <version>${cytoscape.api.version}</version>
         </dependency>
         <dependency>
@@ -108,10 +95,14 @@
             <version>${cytoscape.api.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.cytoscape</groupId>
+            <artifactId>session-api</artifactId>
+            <version>${cytoscape.api.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
             <version>${osgi.api.version}</version>
         </dependency>
-
     </dependencies>
 </project>
