@@ -1,7 +1,15 @@
-package edu.ucsf.rbvi.myapp.internal;
+package edu.ucsf.rbvi.internal.myapp;
 
+import org.cytoscape.model.CyNetworkFactory;
+import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.service.util.AbstractCyActivator;
+import org.cytoscape.session.CyNetworkNaming;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.work.TaskFactory;
 import org.osgi.framework.BundleContext;
+
+import java.util.Properties;
 
 /**
  * {@code CyActivator} is a class that is a starting point for OSGi bundles.
@@ -19,8 +27,8 @@ import org.osgi.framework.BundleContext;
  * you put in all your code that sets up your app. This is where you import and
  * export services.
  * 
- * Your bundle's {@code Bundle-Activator} manifest entry has a fully-qualified
- * path to this class. It's not necessary to inherit from
+ * Your bundle's context{@code Bundle-Activator} manifest entry has a fully-qualified
+ * path to this ccontextlass. It's not necessary to inherit from
  * {@code AbstractCyActivator}. However, we provide this class as a convenience
  * to make it easier to work with OSGi.
  *
@@ -36,6 +44,20 @@ public class CyActivator extends AbstractCyActivator {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		TaskFactory factory = registerService(bc, myFactory, TaskFactory.class, properties);
+
+		CyNetworkNaming cyNetworkNamingServiceRef = getService(context,CyNetworkNaming.class);
+
+		CyNetworkFactory cyNetworkFactoryServiceRef = getService(context,CyNetworkFactory.class);
+		CyNetworkManager cyNetworkManagerServiceRef = getService(context,CyNetworkManager.class);
+
+		CyNetworkViewFactory cyNetworkViewFactoryServiceRef  = getService(context,CyNetworkViewFactory.class);
+		CyNetworkViewManager cyNetworkViewManagerServiceRef = getService(context,CyNetworkViewManager.class);
+
+		BioTaskFactory bioTaskFactory = new BioTaskFactory(cyNetworkNamingServiceRef, cyNetworkFactoryServiceRef,cyNetworkManagerServiceRef, cyNetworkViewFactoryServiceRef,cyNetworkViewManagerServiceRef);
+
+		Properties bioTaskFactoryProps = new Properties();
+		bioTaskFactoryProps.setProperty("preferredMenu","Apps.Samples");
+		bioTaskFactoryProps.setProperty("title","Create Network View");
+		registerService(context,bioTaskFactory, TaskFactory.class, bioTaskFactoryProps);
 	}
 }
