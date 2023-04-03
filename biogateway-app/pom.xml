@@ -7,11 +7,9 @@
         <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
         <maven-bundle-plugin.version>2.3.4</maven-bundle-plugin.version>
         <osgi.api.version>4.2.0</osgi.api.version>
-
-        <bundle.symbolicName>edu.ucsf.rbvi.internal.Biogateway</bundle.symbolicName>
-        <bundle.namespace>edu.ucsf.rbvi.internal.biogateway</bundle.namespace>
+        <bundle.symbolicName>Biogateway.app</bundle.symbolicName>
+        <bundle.namespace>biogateway.app.internal</bundle.namespace>
     </properties>
-
     <groupId>org.cytoscape.biogateway</groupId>
     <artifactId>biogateway-app</artifactId>
     <version>1.0</version>
@@ -100,6 +98,12 @@
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
             <version>${osgi.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cytoscape</groupId>
+            <artifactId>swing-application-api</artifactId>
+            <version>3.1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package edu.ucsf.rbvi.internal.biogateway;
+package biogateway.app.internal;
 
 import java.util.Collection;
 import org.cytoscape.model.CyNetwork;
