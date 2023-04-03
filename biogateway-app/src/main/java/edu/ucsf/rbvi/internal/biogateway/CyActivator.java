@@ -1,4 +1,4 @@
-package edu.ucsf.rbvi.internal.myapp;
+package edu.ucsf.rbvi.internal.biogateway;
 
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
